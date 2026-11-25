@@ -136,7 +136,3 @@ Use screenshots that do not expose credentials, customer information, or sensiti
 - PostgreSQL data access and reporting
 - Power BI dashboard integration
 - Docker-based development and deployment
-
-## 11. Disclaimer
-
-This is an independent learning and portfolio project. It is not an official product of Mì Cay Seoul, Odoo, Microsoft, or SePay. Any business names and sample data are used only to describe the project context.
