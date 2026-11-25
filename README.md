@@ -1,80 +1,161 @@
-# odoo-erp-micayseoul
-Odoo 17 Community ERP project for restaurant operations, featuring smart material management, POS receipt customization, SePay/VietQR payment integration, and embedded Power BI dashboards.
-# Mì Cay Seoul — Odoo ERP Integration Project
+# Mì Cay Seoul — Odoo ERP Implementation Project
+
+An Odoo 17 Community ERP project for restaurant operations, focusing on business process analysis, point-of-sale operations, inventory and material management, payment workflow integration, and Power BI reporting.
 
 ## 1. Project Overview
 
-This project explores the implementation and customization of **Odoo 17 Community** for restaurant operations at Mì Cay Seoul.
+This project explores how an ERP system can improve operational visibility and reduce manual work in restaurant management.
 
-The system focuses on integrating point-of-sale operations, inventory and material management, payment processing, and business intelligence reporting into a unified ERP workflow.
+The project is based on the business case of Mì Cay Seoul, with a focus on the Nguyễn Gia Trí branch in Ho Chi Minh City. The analysis identifies operational challenges involving inventory tracking, ingredient consumption, stock discrepancies, and the use of business data for management reporting.
 
-The project follows a business-process-oriented approach: identifying operational needs, configuring Odoo, developing custom add-ons, and connecting operational data to management reports.
+The proposed solution uses Odoo ERP and custom add-ons to connect restaurant operations with inventory management and business intelligence reporting.
 
-## 2. Business Context
+**Project type:** ERP implementation and business process improvement  
+**ERP platform:** Odoo 17 Community  
+**Deployment environment:** Docker and PostgreSQL  
+**Business domain:** Food & Beverage (F&B)  
+**Focus areas:** Business Analysis, ERP Functional Implementation, Inventory Management, POS, and Business Intelligence
 
-Traditional restaurant operations may rely on separate POS software, spreadsheets, and manual inventory records. This can make it difficult to track ingredient consumption, reconcile inventory differences, monitor low-stock items, and analyze business performance.
+## 2. Business Problem
 
-This project explores how Odoo and custom integrations can support more consistent operational data and management visibility.
+The initial business analysis identified several operational challenges:
 
-## 3. Key Features
+- Inventory and ingredient consumption require additional manual tracking.
+- Actual stock quantities may differ from theoretical consumption.
+- Stocktaking and loss tracking can be time-consuming.
+- Sales and inventory information need to be connected more effectively.
+- Operational data can be further utilized for management reporting and decision-making.
 
-### Smart Material Management
-**Module:** `smart_material`
+The project analyzes the current **AS-IS** processes and proposes **TO-BE** workflows supported by Odoo ERP.
 
-- Track ingredient consumption associated with POS orders.
-- Use Bill of Materials (BOM) to define ingredient requirements.
-- Maintain material consumption history.
-- Record inventory checks and material losses.
-- Provide low-stock alerts and replenishment support.
+## 3. Business Analysis and Process Design
 
-### POS Receipt Customization
-**Module:** `pos_receipt_custom`
+The project covers business analysis activities such as:
 
-- Customize the Odoo POS receipt template.
-- Extend the POS interface using Odoo frontend assets.
+- Understanding the restaurant's operational context and business requirements.
+- Analyzing existing sales, purchasing, inventory, stocktaking, and payment workflows.
+- Identifying operational pain points and improvement opportunities.
+- Modeling current and proposed business processes using BPMN.
+- Mapping business requirements to Odoo modules and custom functionality.
+- Considering user roles, operational controls, and reporting needs.
 
-### Payment Integration
-**Module:** `pos_payment_gateway`
+### Key Business Processes
 
-- Integrate SePay and VietQR payment workflows.
-- Generate QR payment information for transactions.
-- Receive payment notifications through webhooks.
-- Track payment transaction status and its relationship with POS orders.
-- Support invoice email workflows where configured.
+1. **Sales and POS:** Record restaurant orders and sales transactions.
+2. **Purchasing and Receiving:** Manage incoming ingredients and inventory receipts.
+3. **Inventory Management:** Track stock quantities and inventory movements.
+4. **Ingredient Consumption:** Use product recipes and Bills of Materials (BOM) as a basis for material consumption management.
+5. **Stocktaking and Loss Tracking:** Compare recorded stock with actual quantities and investigate discrepancies.
+6. **Payment Workflow:** Explore electronic payment integration and transaction status handling.
+7. **Business Reporting:** Use operational data to support management analysis through Power BI.
 
-### Power BI Dashboard Integration
-**Module:** `smart_bi_dashboard`
+## 4. Custom Odoo Add-ons
 
-- Add a Power BI reporting menu to the Odoo interface.
-- Embed a published Power BI report.
-- Support access to management dashboards for sales, inventory, purchasing, and material consumption.
+The project contains four custom add-ons:
 
-**Note:** Data freshness depends on the Power BI semantic model, data source connectivity, and refresh configuration. Embedding a report does not itself provide real-time data synchronization.
+### 4.1 Smart Material Management — `smart_material`
 
-## 4. Technology Stack
+Focuses on ingredient-level inventory management and material consumption tracking.
 
-- **ERP:** Odoo 17 Community
-- **Backend:** Python
-- **Database:** PostgreSQL
-- **Frontend customization:** XML, JavaScript, OWL
-- **Deployment environment:** Docker and Docker Compose
-- **Business intelligence:** Microsoft Power BI
-- **Payment integration:** SePay, VietQR, webhooks
+The module is intended to support workflows such as:
 
-## 5. Business Processes
+- Tracking material consumption associated with restaurant operations.
+- Recording material usage history.
+- Recording stock discrepancies and material losses.
+- Supporting low-stock monitoring and replenishment decisions.
 
-The main operational flow covered by the project is:
+### 4.2 POS Custom Receipt — `pos_receipt_custom`
 
-1. Configure products, ingredients, and inventory data in Odoo.
-2. Process customer orders through Point of Sale (POS).
-3. Record ingredient consumption according to configured BOM rules.
-4. Monitor inventory levels and inventory discrepancies.
-5. Process supported QR payment workflows and receive transaction notifications.
-6. Analyze operational data through Power BI reports.
+Customizes the Point of Sale receipt presentation to better fit the restaurant's operational needs.
 
-The actual behavior of each workflow depends on the installed modules and system configuration.
+### 4.3 POS Payment Gateway — `pos_payment_gateway`
 
-## 6. Repository Structure
+Provides a custom module for the electronic payment workflow.
+
+The module is associated with the project's SePay/VietQR payment-integration scope. The exact transaction, callback, and payment-confirmation behavior should be verified against the implementation and test results before production use.
+
+### 4.4 Smart BI Dashboard — `smart_bi_dashboard`
+
+Adds a Power BI dashboard entry point within Odoo to make business reporting accessible from the ERP interface.
+
+The embedded report requires the appropriate Power BI access permissions. Report refresh behavior depends on the Power BI dataset and its configured data connection.
+
+## 5. Technology Stack
+
+| Area | Technology |
+|---|---|
+| ERP platform | Odoo 17 Community |
+| Backend customization | Python |
+| ERP views and interfaces | XML, Odoo views and client assets |
+| Database | PostgreSQL |
+| Local deployment | Docker / Docker Compose |
+| Business intelligence | Microsoft Power BI |
+| Business process modeling | BPMN |
+| Analysis and design | Business requirements, AS-IS / TO-BE workflows |
+
+## 6. High-Level Solution Architecture
+
+The project follows this conceptual architecture:
+
+```text
+Restaurant Operations
+        |
+        v
+Odoo 17 Community
+  |        |         |
+  |        |         +--> Custom POS Receipt
+  |        +------------> Smart Material Management
+  +---------------------> Payment Workflow Module
+        |
+        v
+   PostgreSQL
+        |
+        v
+  Power BI Reporting
+        |
+        v
+  Management Insights
+
+Smart BI Dashboard
+provides an entry point to the report within Odoo.
+```
+
+The actual data flow and refresh mechanism depend on the deployed configuration and the implementation of each integration.
+
+## 7. Local Development Environment
+
+The development environment uses Docker to run Odoo and PostgreSQL locally on Windows.
+
+### Prerequisites
+
+- Docker Desktop
+- Docker Compose
+- Odoo 17 Community image or compatible local deployment
+- PostgreSQL configured for the Odoo instance
+- The four custom add-ons included in this repository
+
+### Setup Overview
+
+1. Clone or download the repository.
+2. Review the Docker Compose configuration and environment variables.
+3. Place the custom add-ons in the directory mounted to Odoo's extra-addons path.
+4. Configure database connection details and required credentials locally.
+5. Start the services with Docker Compose.
+6. Open Odoo and update the Apps list.
+7. Install or upgrade the custom add-ons as required.
+8. Verify the workflows using test data before using the system for any real business operation.
+
+Example command:
+
+```bash
+docker compose up -d
+```
+
+The exact configuration may need to be adapted to your local Docker setup. Do not commit passwords, API keys, payment credentials, database dumps, or private configuration files.
+
+## 8. Repository Structure
+
+The intended repository structure is:
 
 ```text
 micay-seoul-odoo-erp/
@@ -84,55 +165,75 @@ micay-seoul-odoo-erp/
 │   ├── pos_payment_gateway/
 │   └── smart_bi_dashboard/
 ├── docs/
+│   ├── business-analysis/
 │   ├── business-process/
-│   ├── data-model/
-│   ├── power-bi/
-│   └── testing/
+│   ├── technical-design/
+│   ├── testing/
+│   └── power-bi/
 ├── screenshots/
 ├── .gitignore
 ├── docker-compose.yml
 └── README.md
 ```
 
-This is the proposed repository structure. Adjust folder names to match the actual files included in the repository.
+Adjust this structure to match the actual files in the repository. Only include directories and documents that are present.
 
-## 7. Setup
+## 9. Testing and Validation
 
-Prerequisites:
+Testing should cover both business workflows and technical behavior.
 
-- Docker Desktop
-- Docker Compose
-- Odoo 17 Community
-- PostgreSQL
+Suggested validation scenarios include:
 
-Deployment instructions, environment variables, module installation steps, and Power BI connection configuration will be documented after the repository structure and configuration files are verified.
+- Creating and confirming a POS order.
+- Verifying expected inventory movements.
+- Checking material consumption records.
+- Recording and reviewing stock discrepancies.
+- Checking the behavior of low-stock notifications, where implemented.
+- Verifying payment status transitions and callback handling, where implemented.
+- Opening the Power BI report from Odoo with an authorized account.
+- Restarting the Docker services and checking system availability.
 
-Do not commit passwords, API keys, webhook secrets, database dumps, or private business data.
+Test results, screenshots, and known limitations should be documented separately. Features that have not been tested should not be described as production-ready.
 
-## 8. Project Scope and Limitations
+## 10. Project Scope and Limitations
 
-This repository documents a learning and portfolio project. Features should be considered implemented only when the corresponding code and workflows are available and tested.
+This is a learning and portfolio project based on a restaurant ERP use case.
 
-Power BI refresh behavior depends on the configured data connection and refresh settings. Payment integrations require valid credentials and appropriate webhook configuration.
+- The business workflows and requirements are based on the project report and may not represent every process used by the actual business.
+- Custom functionality and integration behavior depend on the current code and local configuration.
+- Electronic payment integration requires appropriate credentials, secure callback validation, and end-to-end testing before production use.
+- Power BI embedding requires appropriate report permissions and a correctly configured data connection.
+- Business data should be anonymized or replaced with sample data before public sharing.
+- Accounting, HR, and other future extensions should be documented separately unless they have been implemented and tested.
 
-## 9. Screenshots and Demonstrations
+## 11. Skills Demonstrated
 
-Screenshots and demonstrations will be added to document:
+- Business requirements analysis
+- AS-IS / TO-BE process analysis
+- BPMN business process modeling
+- ERP module mapping and functional configuration
+- Odoo custom module organization
+- Inventory and material management concepts
+- POS workflow analysis
+- Integration planning and validation
+- PostgreSQL data awareness
+- Power BI reporting integration
+- Functional testing and documentation
+- Docker-based development environment
 
-- Odoo POS order processing
-- Ingredient and inventory management
-- Inventory loss records and low-stock alerts
-- QR payment workflow
-- Power BI dashboards embedded in Odoo
+## 12. Project Documentation
 
-Use screenshots that do not expose credentials, customer information, or sensitive operational data.
+The `docs/` directory can contain selected project artifacts, such as:
 
-## 10. Skills Demonstrated
+- Business requirements and scope
+- AS-IS and TO-BE BPMN diagrams
+- Functional requirements and process descriptions
+- Solution architecture and module mapping
+- Test scenarios and results
+- Power BI dashboard screenshots and data-flow documentation
 
-- ERP process analysis and workflow mapping
-- Odoo configuration and custom module development
-- Inventory and POS process integration
-- External payment service integration
-- PostgreSQL data access and reporting
-- Power BI dashboard integration
-- Docker-based development and deployment
+The original academic report can be shared separately after reviewing personal information, team member details, and any content that should not be publicly distributed.
+
+## 13. Disclaimer
+
+This repository is intended for educational and portfolio purposes. It is not an official Mì Cay Seoul production system. Any use with real business data or payment transactions requires additional security, integration, and operational validation.
